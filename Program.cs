@@ -115,6 +115,31 @@ namespace FemaleFriendsHousbandsHomework
         }
     }
 
+    class Elf : LAIICharacter
+    {
+        float earLenght;
+        int sexuality;
+        public float EarLenght { get { return earLenght; } set { earLenght = value; } }
+        public int SexualityLevel
+        {
+            get { return sexuality; }
+            set
+            {
+                if (value > 100 || value < 0) Console.WriteLine("Sexuality lavel can be from 0 to 100");
+                else sexuality = value;
+            }
+        }
+        public Elf() : base("el")
+        {
+        }
+        public Elf(string name, string gender, float height, int healthPoints, float earLenght, int sexuality) : base(name, gender, height, healthPoints, "el'")
+        {
+            EarLenght = earLenght;
+            SexualityLevel = sexuality;
+        }
+    }
+
+
     class Program
     {
         static void Main()
@@ -123,7 +148,7 @@ namespace FemaleFriendsHousbandsHomework
             Console.WriteLine( $"Race Human, name {sergey.Name}, gender {sergey.Gender}, diplomacy {sergey.Diplomacy}, HP {sergey.HealpPoints}");
             Human john = new Human
             {
-                Name = "Johnik",
+                Name = "johnik",
                 Gender = "male",
                 Height = 1.8f,
                 HealpPoints = 100,
@@ -131,6 +156,8 @@ namespace FemaleFriendsHousbandsHomework
             };
             Console.WriteLine($"Race Human, name {john.Name}, gender {john.Gender}, diplomacy {john.Diplomacy}, HP {sergey.HealpPoints}");
 
+            Elf roman = new Elf("roman", "male", 1.8f, 80, 5.2f, 100);
+            Console.WriteLine($"Now we have The Elf, name {roman.Name}, gender {roman.Gender}, sexuality is {roman.SexualityLevel}, HP {roman.HealpPoints}");
         }
     }
 }
