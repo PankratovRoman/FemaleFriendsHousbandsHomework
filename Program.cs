@@ -2,31 +2,30 @@
 
 namespace FemaleFriendsHousbandsHomework
 {
-   
     abstract class LAIICharacter
     {
-        string name;
-        string gender;
-        float height;
-        int healthPoints;
-        string namePostfix;
+        protected string name;
+        protected string gender;
+        protected float height;
+        protected int healthPoints;
+        protected string namePostfix;
         //weight, manaPoints, weaponPtiority
         public string Name
         {
             get
             {
-                if (string.IsNullOrEmpty(name))
-                {
-                    return name;
-                }
-                else
-                {
-                    return name.Substring(0, 1).ToUpper() + name[1..].ToLower() + namePostfix;
-                }
+                return name;
             }
             set
             {
-                name = value;
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    name = value ?? string.Empty; // ?? - если Null, то даст string.Empty
+                }
+                else
+                {
+                    name = value.Substring(0, 1).ToUpper() + value[1..].ToLower() + namePostfix;
+                }
             }
         }
         public string NamePostfix
@@ -37,19 +36,22 @@ namespace FemaleFriendsHousbandsHomework
             }
             set
             {
-                if (value.Length != 3) Console.WriteLine("Be true! Use 3-chars postfixes! Recreate your character.");
-                else namePostfix = value;
+                namePostfix = value;
             }
         }
         public string Gender
         {
-            get { return gender;
+            get
+            {
+                return gender;
             }
-            set {
+            set
+            {
                 if (value != "male" && value != "female")
                     Console.WriteLine("Gender is not defined, and we dont like such creatures. Recreate your character.");
                 else
-                    gender = value; }
+                    gender = value;
+            }
         }
         public float Height
         {
@@ -75,89 +77,120 @@ namespace FemaleFriendsHousbandsHomework
                 else healthPoints = value;
             }
         }
+        protected LAIICharacter()
+        {
+        }
         protected LAIICharacter(string namePostfix)
         {
+            if (namePostfix.Length != 3)
+                throw new Exception("Be true! Use 3-chars postfixes! Re-create your character.");
             NamePostfix = namePostfix;
         }
-        protected LAIICharacter(string name, string gender, float height, int healthPoints, string namePostfix)
+        protected LAIICharacter(string name, string gender, float height, int healthPoints, string namePostfix) : this(namePostfix)
         {
             Name = name;
             Gender = gender;
             Height = height;
             HealpPoints = healthPoints;
-            NamePostfix = namePostfix;
         }
+        protected bool CheckParameter(int paramInt, int min = 0, int max = 100)
+        {
+            return paramInt >= min && paramInt <= max;
+        }
+
     }
 
     class Human : LAIICharacter
     {
-        int diplomacyLavel;
-        bool haveDragon;
+        int _diplomacyLevel;
         public int Diplomacy
         {
-            get { return diplomacyLavel; }
-            set
-            {
-                if (value > 100 || value < 0) Console.WriteLine("Diplomacy lavel can be from 0 to 100");
-                //if (haveDragon) diplomacyLavel = value + 20;
-                else diplomacyLavel = value;
-            }
+            get { return _diplomacyLevel + 20 * Convert.ToInt32(HaveDragon); } //True и False по сути 1 и 0, можно сделать вот так. Круто!; 
+            set { _diplomacyLevel = value; }
         }
-        public bool HaveDragon { get { return haveDragon; } set { haveDragon = value; } }
-        public Human():base("mir")
-        {
+        public bool HaveDragon { get; set; }
 
-        }
-        public Human(string name, string gender, float height, int diplomacyLavel, bool haveDragon) : base(name, gender, height, 100, "mir")
+        public Human(string name, string gender, float height, int diplomacyLevel, bool haveDragon) : base(name, gender, height, 100, "mir")
         {
-            Diplomacy = diplomacyLavel;
+            if (!CheckParameter(diplomacyLevel))
+                throw new Exception("Diplomacy level can only be between 0 and 100");
             HaveDragon = haveDragon;
         }
     }
 
     class Elf : LAIICharacter
     {
-        float earLenght;
-        int sexuality;
-        public float EarLenght { get { return earLenght; } set { earLenght = value; } }
+        float _earLength;
+        int _sexuality;
+        public float EarLength { get { return _earLength; } set { _earLength = value; } }
+        /// <summary>
+        /// Уровень сексуальности
+        /// </summary>
         public int SexualityLevel
         {
-            get { return sexuality; }
-            set
-            {
-                if (value > 100 || value < 0) Console.WriteLine("Sexuality lavel can be from 0 to 100");
-                else sexuality = value;
-            }
+            get { return _sexuality; }
+            set { _sexuality = value; }
         }
-        public Elf() : base("el")
+        public Elf() : base("iel")
         {
         }
-        public Elf(string name, string gender, float height, int healthPoints, float earLenght, int sexuality) : base(name, gender, height, healthPoints, "el'")
+        /// <summary>
+        /// Эльфонструктор!
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="gender"></param>
+        /// <param name="height"></param>
+        /// <param name="healthPoints"></param>
+        /// <param name="earLength">Длина уха</param>
+        /// <param name="sexuality">Уровень сексуальности</param>
+        public Elf(string name, string gender, float height, int healthPoints, float earLength, int sexuality) : base(name, gender, height, healthPoints, "iel")
         {
-            EarLenght = earLenght;
+            if (!CheckParameter(sexuality))
+                throw new Exception("Sexuality level can only be between 0 and 100");
+            EarLength = earLength;
             SexualityLevel = sexuality;
         }
     }
 
+    class Dwarf : LAIICharacter
+    {
+        bool _canCraft;
+        bool _canTrade;
+        public bool CanCraft { get { return _canCraft; } set { _canCraft = value; } }
+        public bool CanTrade { get { return _canTrade; } set { _canTrade = value; } }
+
+        private static readonly Random _rnd = new Random();
+        public Dwarf() : base()
+        {
+            string[] dwarfPostfixes = { "ori", "fur", "lin" };
+            int namePostfixIndex = _rnd.Next(dwarfPostfixes.Length);
+            NamePostfix = dwarfPostfixes[namePostfixIndex];
+        }
+
+        public Dwarf(string name, string gender, float height, int healthPoints, string namePostfix, bool canCraft, bool canTrade) : base(name, gender, height, healthPoints, namePostfix)
+        {
+            CanCraft = canCraft;
+            CanTrade = canTrade;
+        }
+    }
 
     class Program
     {
         static void Main()
         {
             Human sergey = new Human("seRGEy", "male", 1.8f, 100, true);
-            Console.WriteLine( $"Race Human, name {sergey.Name}, gender {sergey.Gender}, diplomacy {sergey.Diplomacy}, HP {sergey.HealpPoints}");
-            Human john = new Human
-            {
-                Name = "johnik",
-                Gender = "male",
-                Height = 1.8f,
-                HealpPoints = 100,
-                HaveDragon = false
-            };
+            Console.WriteLine($"Race Human, name {sergey.Name}, gender {sergey.Gender}, diplomacy {sergey.Diplomacy}, HP {sergey.HealpPoints}");
+
+            Human john = new Human("johnik", "male", 1.8f, 0, false);
             Console.WriteLine($"Race Human, name {john.Name}, gender {john.Gender}, diplomacy {john.Diplomacy}, HP {sergey.HealpPoints}");
 
             Elf roman = new Elf("roman", "male", 1.8f, 80, 5.2f, 100);
             Console.WriteLine($"Now we have The Elf, name {roman.Name}, gender {roman.Gender}, sexuality is {roman.SexualityLevel}, HP {roman.HealpPoints}");
+
+            Dwarf kapkanec = new Dwarf();
+            kapkanec.Name = "sasha";
+            Console.WriteLine($"Dwarf {kapkanec.Name} is in da house!");
+
         }
     }
 }
