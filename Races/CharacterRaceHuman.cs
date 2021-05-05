@@ -16,7 +16,7 @@ namespace FemaleFriendsHousbandsHomework
 
         public CharacterRaceHuman(string name, string gender, float height, int diplomacyLevel, bool haveDragon) : base(name, gender, height, 100, "mir")
         {
-            if (!CheckParameter(diplomacyLevel))
+            if (!CheckRaceParameter(diplomacyLevel))
                 throw new Exception("Diplomacy level can only be between 0 and 100");
             HaveDragon = haveDragon;
         }

@@ -95,7 +95,7 @@ namespace FemaleFriendsHousbandsHomework
             Height = height;
             HealpPoints = healthPoints;
         }
-        protected bool CheckParameter(int paramInt, int min = 0, int max = 100)
+        protected bool CheckRaceParameter(int paramInt, int min = 0, int max = 100)
         {
             return paramInt >= min && paramInt <= max;
         }
