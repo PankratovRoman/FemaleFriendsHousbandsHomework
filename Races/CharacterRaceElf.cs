@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FemaleFriendsHousbandsHomework
+namespace FemaleFriendsHusbandsHomework
 {
     class CharacterRaceElf : LAIICharacterBase
     {
@@ -17,9 +17,7 @@ namespace FemaleFriendsHousbandsHomework
             get { return _sexuality; }
             set { _sexuality = value; }
         }
-        public CharacterRaceElf() : base("iel")
-        {
-        }
+
         /// <summary>
         /// Эльфонструктор!
         /// </summary>
@@ -29,7 +27,7 @@ namespace FemaleFriendsHousbandsHomework
         /// <param name="healthPoints"></param>
         /// <param name="earLength">Длина уха</param>
         /// <param name="sexuality">Уровень сексуальности</param>
-        public CharacterRaceElf(string name, string gender, float height, int healthPoints, float earLength, int sexuality) : base(name, gender, height, healthPoints, "iel")
+        public CharacterRaceElf(string name, string gender, float height, int healthPoints, float earLength, int sexuality) : base(name, gender, height, healthPoints, Weapons.DamageType.Piercing,  "iel")
         {
             if (!CheckRaceParameter(sexuality))
                 throw new Exception("Sexuality level can only be between 0 and 100");

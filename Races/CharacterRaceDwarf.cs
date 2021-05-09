@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FemaleFriendsHousbandsHomework
+namespace FemaleFriendsHusbandsHomework
 {
     class CharacterRaceDwarf : LAIICharacterBase
     {
@@ -13,18 +13,17 @@ namespace FemaleFriendsHousbandsHomework
 
         private static readonly Random _rnd = new Random();
 
-        //public Dwarf() //: base() - нужно ли тут это?
+        //public CharacterRaceDwarf() //: base() - нужно ли тут это?
         //{
         //    string[] dwarfPostfixes = { "ori", "fur", "lin" };
         //    int namePostfixIndex = _rnd.Next(dwarfPostfixes.Length);
         //    NamePostfix = dwarfPostfixes[namePostfixIndex];
         //}
 
-        public CharacterRaceDwarf(string name, string gender, float height, int healthPoints, string namePostfix, bool canCraft, bool canTrade) : base(name, gender, height, healthPoints, namePostfix)
+        public CharacterRaceDwarf(string name, string gender, float height, int healthPoints, bool canCraft, bool canTrade) : base(name, gender, height, healthPoints, Weapons.DamageType.Blunt)
         {
             CanCraft = canCraft;
             CanTrade = canTrade;
-
             string[] dwarfPostfixes = { "ori", "fur", "lin" };
             int namePostfixIndex = _rnd.Next(dwarfPostfixes.Length);
             NamePostfix = dwarfPostfixes[namePostfixIndex];
