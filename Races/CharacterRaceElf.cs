@@ -27,7 +27,7 @@ namespace FemaleFriendsHusbandsHomework
         /// <param name="healthPoints"></param>
         /// <param name="earLength">Длина уха</param>
         /// <param name="sexuality">Уровень сексуальности</param>
-        public CharacterRaceElf(string name, string gender, float height, int healthPoints, float earLength, int sexuality) : base(name, gender, height, healthPoints, Weapons.DamageType.Piercing,  "iel")
+        public CharacterRaceElf(string name, string gender, float height, float earLength, int sexuality) : base(name, gender, height, 80, Weapons.DamageType.Piercing,  "iel")
         {
             if (!CheckRaceParameter(sexuality))
                 throw new Exception("Sexuality level can only be between 0 and 100");

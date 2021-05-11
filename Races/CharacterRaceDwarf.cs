@@ -20,7 +20,16 @@ namespace FemaleFriendsHusbandsHomework
         //    NamePostfix = dwarfPostfixes[namePostfixIndex];
         //}
 
-        public CharacterRaceDwarf(string name, string gender, float height, int healthPoints, bool canCraft, bool canTrade) : base(name, gender, height, healthPoints, Weapons.DamageType.Blunt)
+        /// <summary>
+        /// Dwarf CTOR
+        /// </summary>
+        /// <param name="name">Name</param>
+        /// <param name="gender">Gender</param>
+        /// <param name="height">Height</param>
+        /// <param name="healthPoints">HP</param>
+        /// <param name="canCraft">Craft</param>
+        /// <param name="canTrade">Trade</param>
+        public CharacterRaceDwarf(string name, string gender, float height, bool canCraft, bool canTrade) : base(name, gender, height, 120, Weapons.DamageType.Blunt)
         {
             CanCraft = canCraft;
             CanTrade = canTrade;

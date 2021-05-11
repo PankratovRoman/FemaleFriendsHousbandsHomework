@@ -78,9 +78,14 @@ namespace FemaleFriendsHusbandsHomework
             get { return healthPoints; }
             set
             {
-                if (value < 80 || value > 120)
+                if (value <= 0)
                 {
-                    Console.WriteLine("HP limits are 80 to 120");
+                    healthPoints = 0;
+                    Console.WriteLine($"{Name} is dead!");
+                }
+                else if (value > 120)
+                {
+                    Console.WriteLine($"HP limit 120!");
                 }
                 else healthPoints = value;
             }
@@ -119,6 +124,11 @@ namespace FemaleFriendsHusbandsHomework
         public void Equip(LAIIWeaponBase weapon)
         {
             Weapon = weapon;
+        }
+
+        public void Hit(LAIICharacterBase character)
+        {
+            character.HealthPoints -= TotalDamage;
         }
         #endregion
 
