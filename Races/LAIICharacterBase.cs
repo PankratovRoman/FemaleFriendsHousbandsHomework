@@ -81,7 +81,7 @@ namespace FemaleFriendsHusbandsHomework
                 if (value <= 0)
                 {
                     healthPoints = 0;
-                    Console.WriteLine($"{Name} is dead!");
+                    Console.WriteLine($"{FullName} is dead!");
                 }
                 else if (value > 120)
                 {

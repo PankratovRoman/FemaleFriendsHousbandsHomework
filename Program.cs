@@ -19,19 +19,24 @@ namespace FemaleFriendsHusbandsHomework
                 _ => throw new Exception("Select 1, 2 or 3"),
             };
         }
+
+        public static Bow peril = new Bow("Bow of Peril", 70);
+        public static Sword damascus = new Sword("Sword of Damascus", 50);
+        public static Blunt battlehammer = new Blunt("Battlehammer", 40);
+
+        public static LAIIWeaponBase GetWeapon(int selectedIndex)
+        {
+            return selectedIndex switch
+            {
+                1 => peril,
+                2 => damascus,
+                3 => battlehammer,
+                _ => throw new Exception("Select 1, 2 or 3"),
+            };
+        }
+
         static void Main()
         {
-
-
-            Bow peril = new Bow("Bow of Peril", 70);
-            Sword damascus = new Sword("Sword of Damascus", 50);
-            Blunt battlehammer = new Blunt("Battlehammer", 40);
-
-            
-
-            //sergey.Equip(damascus);
-            //roman.Equip(peril);
-            //kapkanec.Equip(battlehammer);
 
             //Console.WriteLine($"Race Human, name Sir {sergey.FullName}, HP {sergey.HealthPoints}");
             Console.WriteLine($"Race Human, name Sir {john.FullName}, HP {john.HealthPoints}");
@@ -50,7 +55,12 @@ namespace FemaleFriendsHusbandsHomework
             Console.WriteLine("Select your character: ");
             int selectIndex = Convert.ToInt32(Console.ReadLine());
             var selectedCaracter = GetCharacter(selectIndex);
-            Console.WriteLine(selectedCaracter.Name);
+            Console.WriteLine(selectedCaracter.FullName);
+
+            selectIndex = Convert.ToInt32(Console.ReadLine());
+            var selectedWeapon = GetWeapon(selectIndex);
+            Console.WriteLine(selectedWeapon.Name);
+            selectedCaracter.Equip(selectedWeapon);
 
             Console.WriteLine($"{kapkanec.FullName}'s HP before HIT {kapkanec.HealthPoints}");
             selectedCaracter.Hit(kapkanec);

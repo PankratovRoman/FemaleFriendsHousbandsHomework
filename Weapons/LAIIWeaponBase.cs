@@ -20,7 +20,7 @@ namespace FemaleFriendsHusbandsHomework.Weapons
             Name = name;
             Damage = damage;
             DamageType = damageType;
-            //DamageType = (DamageType)Enum.Parse(typeof(DamageType),damageType);
+            
         }
 
         protected bool CheckWeaponParameter(int paramInt, int min = 50, int max = 100)
